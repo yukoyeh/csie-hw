@@ -32,21 +32,23 @@ int main( void )
  /* insert random values between 0 and 14 in the tree */
  for ( i = 1; i <= 10; i++ ) {
  item = rand() % 15;
- 
+ insertNode(&rootPtr,item);
  printf( "%3d", item );
 
  } /* end for */
  
  /* traverse the tree preOrder */
  printf( "\n\nThe preOrder traversal is:\n" );
- 
+ preOrder(rootPtr);
 
  /* traverse the tree inOrder */
  printf( "\n\nThe inOrder traversal is:\n" );
-
+ inOrder(rootPtr); 
 
  /* traverse the tree postOrder */
  printf( "\n\nThe postOrder traversal is:\n" );
+ postOrder(rootPtr);
+ 
  return 0; /* indicates successful termination */
  } /* end main */
 
