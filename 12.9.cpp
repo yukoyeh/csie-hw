@@ -2,12 +2,15 @@
 Create a binary tree and traverse it
 preorder, inorder, and postorder */
 #include<stdio.h>
+#include<iostream>
+#include<string.h>
 #include <stdlib.h>
 #include <time.h>
+using namespace std;
 /* self-referential structure */
 struct treeNode {
 struct treeNode *leftPtr; /* pointer to left subtree */
-int data; /* node value */
+char *data; /* node value */
 struct treeNode *rightPtr; /* pointer to right subtree */
 }; /* end structure treeNode */
 
@@ -15,7 +18,7 @@ struct treeNode *rightPtr; /* pointer to right subtree */
  typedef TreeNode *TreeNodePtr; /* synonym for TreeNode* */
 
  /* prototypes */
- void insertNode( TreeNodePtr *treePtr, int value );
+ void insertNode( TreeNodePtr *treePtr, char *value );
  void inOrder( TreeNodePtr treePtr );
  void preOrder( TreeNodePtr treePtr );
  void postOrder( TreeNodePtr treePtr );
@@ -23,44 +26,44 @@ struct treeNode *rightPtr; /* pointer to right subtree */
 int main( void )
  {
  int i; /* counter to loop from 1-10 */
- int item; /* variable to hold random values */
+ char item[1000]; /* variable to hold random values */
+ char *pch; 
  TreeNodePtr rootPtr = NULL; /* tree initially empty */
-
- srand( time( NULL ) );
- printf( "The numbers being placed in the tree are:\n" );
-  
- /* insert random values between 0 and 14 in the tree */
- for ( i = 1; i <= 10; i++ ) {
- item = rand() % 15;
- insertNode(&rootPtr,item);
- printf( "%3d", item );
-
- } /* end for */
  
- /* traverse the tree preOrder */
- printf( "\n\nThe preOrder traversal is:\n" );
+ //printf( "The numbers being placed in the tree are:\n" );
+ gets(item);
+ //printf( "%s", item );
+ pch = strtok (item," ,.-");
+ while (pch != NULL)
+  {
+  		insertNode(&rootPtr,pch);
+        pch = strtok (NULL, " ,.-");
+        
+  }/* traverse the tree preOrder */
+ //printf( "\n\nThe preOrder traversal is:\n" );
  preOrder(rootPtr);
-
+ cout<<endl;
  /* traverse the tree inOrder */
- printf( "\n\nThe inOrder traversal is:\n" );
- inOrder(rootPtr); 
-
+ //printf( "\n\nThe inOrder traversal is:\n" );
+ inOrder(rootPtr);
+ cout<<endl;
  /* traverse the tree postOrder */
- printf( "\n\nThe postOrder traversal is:\n" );
+ //printf( "\n\nThe postOrder traversal is:\n" );
  postOrder(rootPtr);
- 
+ cout<<endl;
  return 0; /* indicates successful termination */
  } /* end main */
 
  /* insert node into tree */
- void insertNode( TreeNodePtr *treePtr, int value )
+ void insertNode( TreeNodePtr *treePtr, char *value )
  {
  /* if tree is empty */
  if ( *treePtr == NULL ) {
  *treePtr = (TreeNodePtr)malloc(sizeof(TreeNode));
-
+ 
  /* if memory was allocated then assign data */
  if ( *treePtr != NULL ) {
+ //( *treePtr )->data = value;
  ( *treePtr )->data = value;
  ( *treePtr )->leftPtr = NULL;
  ( *treePtr )->rightPtr = NULL;
@@ -71,14 +74,22 @@ int main( void )
  } /* end if */
 
  else{
-      if ( value < ( *treePtr )->data ) {
+      /*if ( value < ( *treePtr )->data ) {
       insertNode( &( ( *treePtr )->leftPtr ), value );
       }
  else if ( value > ( *treePtr )->data ) {
       insertNode( &( ( *treePtr )->rightPtr ), value );
+      }*/
+      
+      if ( strcmp( value, ( *treePtr )->data ) < 0) {
+      insertNode( &( ( *treePtr )->leftPtr ), value );
       }
-  else { /* duplicate data value ignored */
- printf( "dup" );
+ else if ( strcmp( value, ( *treePtr )->data ) > 0 ) {
+      insertNode( &( ( *treePtr )->rightPtr ), value );
+      }
+      
+  else { /* duplicate data value ignored 指資料重複吧XDDDDD */
+   //printf( "dup" );
  } /* end else */
  } /* end else */
  } /* end function insertNode */
@@ -86,7 +97,7 @@ int main( void )
  {
       if ( treePtr != NULL ) {
   inOrder( treePtr->leftPtr );
-printf( "%3d", treePtr->data );
+printf( "%s ", treePtr->data );
 inOrder( treePtr->rightPtr );
 } /* end if */
 }
@@ -94,7 +105,7 @@ inOrder( treePtr->rightPtr );
   void preOrder( TreeNodePtr treePtr )
  {
     if ( treePtr != NULL ) {
-printf( "%3d", treePtr->data );
+printf( "%s ", treePtr->data );
 preOrder( treePtr->leftPtr );
 preOrder( treePtr->rightPtr );
 } /* end if */
@@ -105,7 +116,7 @@ void postOrder( TreeNodePtr treePtr ){
      if ( treePtr != NULL ) {
 postOrder( treePtr->leftPtr );
 postOrder( treePtr->rightPtr );
-printf( "%3d", treePtr->data );
+printf( "%s ", treePtr->data );
 } /* end if */
 
 }
