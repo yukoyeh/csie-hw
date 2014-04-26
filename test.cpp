@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include<time.h>
 
-struct treenode {
+struct treeNode {
        struct treeNode *leftPtr;
        int data;
        struct treeNode *rightPtr;
@@ -27,13 +27,13 @@ int main(void)
     for(i = 1;i <= 10;i++){
             item = rand() % 15;
             printf("%3d", item);
-        intsertNode( &rootPtr, item);
+        insertNode( &rootPtr, item);
     }
     preOrder( rootPtr );
 
     inOrder( rootPtr );
 
-    postPtr( rootPtr );
+    postOrder( rootPtr );
 
     return 0;
 
@@ -43,7 +43,7 @@ void insertNode( TreeNodePtr *treePtr, int value)
 {
 
    if(*treePtr == NULL)  {
-    *treePtr = malloc( sizeof( TreeNode ) );
+    *treePtr = (TreeNodePtr)malloc( sizeof( TreeNode ) );
 
     if(*treePtr != NULL){
         (*treePtr)->data = value;
@@ -66,7 +66,7 @@ void insertNode( TreeNodePtr *treePtr, int value)
        if( treePtr != NULL){
         inOrder(treePtr->leftPtr);
         printf("%3d", treePtr->data);
-        inOrder(treePtr->rightPtr)
+        inOrder(treePtr->rightPtr);
        }
    }
 
