@@ -88,7 +88,7 @@ int main( void )
       insertNode( &( ( *treePtr )->rightPtr ), value );
       }
       
-  else { /* duplicate data value ignored «ü¸ê®Æ­«½Æ§aXDDDDD */
+  else { /* duplicate data value ignored ï¿½ï¿½ï¿½ï¿½ï¿½Æ­ï¿½ï¿½Æ§aXDDDDD */
    //printf( "dup" );
  } /* end else */
  } /* end else */
