@@ -1,0 +1,37 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class CBox{
+public:
+	double m_length;
+	double m_width;
+	double m_height;
+public:
+	double volume()const{return m_length*m_width*m_height;}
+	istream& in(istream&is){return is>>m_length>>m_width>>m_height;}
+	ostream& out(ostream&os)const{
+		os<<endl<<"盒子的三長、寬、高分別為"<<m_length<<"  "<<m_width<<" "<<m_height;
+		return os<<endl<<"\t體積為"<<volume();
+	}
+};
+istream& operator>>(istream& is,CBox& box){return box.in(is);}
+ostream& operator<<(ostream& os,const CBox& box){return box.out(os);}
+class CMailBox:public CBox{public:
+	string m_toAddress;
+	//Add codes here.
+		istream& in(istream&is){return is>>m_toAddress>>m_length>>m_width>>m_height;}
+	ostream& out(ostream&os)const{
+		os<<endl<<"寄往 "<<m_toAddress<<" 的盒子";
+		os<<endl<<"盒子的三長、寬、高分別為"<<m_length<<"  "<<m_width<<" "<<m_height;
+		return os<<endl<<"\t體積為"<<volume();
+	}
+};
+istream& operator>>(istream& is,CMailBox& box){return box.in(is);}
+ostream& operator<<(ostream& os,const CMailBox& box){return box.out(os);}
+
+int main(){
+	CBox box;cin>>box;cout<<box;
+	cout<<endl<<"-----------------------------------";
+	CMailBox mbox;cin>>mbox;cout<<mbox;
+	return 0;
+}
